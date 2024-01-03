@@ -64,8 +64,15 @@ const getAllWeapons = async (page) => {
   }
 };
 
-const getClassesId = (query) => {
-  console.log(query);
+const getClassDetails = async (classId) => {
+  try {
+    const response = await fetch(`https://eldenring.fanapis.com/api/classes/${classId}`);
+    const { data } = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };
 
 const getAllClasses = async () => {
@@ -86,6 +93,6 @@ export {
   getBossDetails,
   getWeaponsDetails,
   getAllWeapons,
-  getClassesId,
+  getClassDetails,
   getAllClasses,
 };
