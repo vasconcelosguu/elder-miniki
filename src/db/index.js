@@ -1,15 +1,12 @@
-
-const getItemId = (query) => {
-  fetch(`https://eldenring.fanapis.com/api/items/${query}`)
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
+const getItemDetails = async (itemId) => {
+  try {
+    const response = await fetch(`https://eldenring.fanapis.com/api/items/${itemId}`);
+    const { data } = await response.json();
     return data;
-  })
-  .catch((error) => {
+  } catch (error) {
     console.error(error);
-    return error;
-  });
+    throw error;
+  }
 };
 
 const getAllItems = async (page) => {
@@ -24,8 +21,8 @@ const getAllItems = async (page) => {
 };
 
 const getBossId = (query) => {
-
-}
+  console.log(query);
+};
 
 const getAllBosses = async (page) => {
   try {
@@ -38,8 +35,9 @@ const getAllBosses = async (page) => {
   }
 };
 
-
-const getWeaponsId = (query) => {}
+const getWeaponsId = (query) => {
+  console.log(query);
+};
 
 const getAllWeapons = async (page) => {
   try {
@@ -50,23 +48,25 @@ const getAllWeapons = async (page) => {
     console.error(error);
     throw error;
   }
-}
+};
 
-const getClassesId = (query) => {}
+const getClassesId = (query) => {
+  console.log(query);
+};
 
 const getAllClasses = async () => {
   try {
-    const response = await fetch(`https://eldenring.fanapis.com/api/classes`);
+    const response = await fetch('https://eldenring.fanapis.com/api/classes');
     const data = await response.json();
     return data;
   } catch (error) {
     console.error(error);
     throw error;
   }
-}
+};
 
 export {
-  getItemId,
+  getItemDetails,
   getAllItems,
   getAllBosses,
   getBossId,
@@ -75,4 +75,3 @@ export {
   getClassesId,
   getAllClasses,
 };
-

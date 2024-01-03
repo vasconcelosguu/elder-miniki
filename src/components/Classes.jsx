@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAllClasses } from '../db';
 
-const Items = () => {
+function Items() {
   const [weapons, setweapons] = useState([]);
 
   useEffect(() => {
@@ -18,10 +18,9 @@ const Items = () => {
 
     fetchData();
   }, []);
-  
 
   return (
-    <div className='bg-gray-600 p-4'>
+    <div className="bg-gray-600 p-4">
       <h1 className="text-3xl font-bold mb-4 text-white">Classes:</h1>
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {weapons.map((weapon) => (
@@ -41,6 +40,6 @@ const Items = () => {
       </ul>
     </div>
   );
-};
+}
 
 export default Items;
