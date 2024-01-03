@@ -23,6 +23,11 @@ function App() {
 
   return (
     <main>
+      <h1 className="flex text-white text-5xl font-extrabold bg-gray-800 mx-auto">
+        Elder
+        <span className="bg-blue-100 text-blue-800 text-2xl font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">Miniki</span>
+      </h1>
+
       <header className="bg-gray-800 py-4">
         <Navigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
       </header>
