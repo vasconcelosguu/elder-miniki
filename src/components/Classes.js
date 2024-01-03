@@ -18,6 +18,7 @@ const Items = () => {
 
     fetchData();
   }, []);
+  
 
   return (
     <div className='bg-gray-600 p-4'>

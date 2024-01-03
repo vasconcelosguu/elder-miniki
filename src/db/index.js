@@ -12,9 +12,9 @@ const getItemId = (query) => {
   });
 };
 
-const getAllItems = async () => {
+const getAllItems = async (page) => {
   try {
-    const response = await fetch(`https://eldenring.fanapis.com/api/items`);
+    const response = await fetch(`https://eldenring.fanapis.com/api/items?page=${page}`);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -27,22 +27,23 @@ const getBossId = (query) => {
 
 }
 
-const getAllBosses = async () => {
+const getAllBosses = async (page) => {
   try {
-    const response = await fetch(`https://eldenring.fanapis.com/api/bosses`);
+    const response = await fetch(`https://eldenring.fanapis.com/api/bosses?page=${page}`);
     const data = await response.json();
     return data;
   } catch (error) {
     console.error(error);
     throw error;
   }
-}
+};
+
 
 const getWeaponsId = (query) => {}
 
-const getAllWeapons = async () => {
+const getAllWeapons = async (page) => {
   try {
-    const response = await fetch(`https://eldenring.fanapis.com/api/weapons`);
+    const response = await fetch(`https://eldenring.fanapis.com/api/weapons?page=${page}`);
     const data = await response.json();
     return data;
   } catch (error) {

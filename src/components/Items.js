@@ -3,21 +3,30 @@ import { getAllItems } from '../db';
 
 const Items = () => {
   const [items, setItems] = useState([]);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getAllItems();
+        const response = await getAllItems(page);
         setItems(response.data);
       } catch (error) {
-        if (error) {
-          console.error(error);
-        }
+        console.error(error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [page]);
+
+  const handleNextPage = () => {
+    setPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    if (page > 1) {
+      setPage((prevPage) => prevPage - 1);
+    }
+  };
 
   return (
     <div className='bg-gray-600 p-4'>
@@ -38,6 +47,20 @@ const Items = () => {
           </li>
         ))}
       </ul>
+      <div className="flex justify-between mt-4">
+        <button
+          onClick={handlePrevPage}
+          className="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md"
+        >
+          Página Anterior
+        </button>
+        <button
+          onClick={handleNextPage}
+          className="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md"
+        >
+          Próxima Página
+        </button>
+      </div>
     </div>
   );
 };

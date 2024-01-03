@@ -3,11 +3,12 @@ import { getAllWeapons } from '../db';
 
 const Items = () => {
   const [weapons, setweapons] = useState([]);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getAllWeapons();
+        const response = await getAllWeapons(page);
         setweapons(response.data);
       } catch (error) {
         if (error) {
@@ -17,7 +18,17 @@ const Items = () => {
     };
 
     fetchData();
-  }, []);
+  }, [page]);
+
+  const handleNextPage = () => {
+    setPage((prevPage) => prevPage + 1);
+  }
+
+  const handlePrevPage = () => {
+    if (page > 1) {
+      setPage((prevPage) => prevPage - 1);
+    }
+  }
 
   return (
     <div className='bg-gray-600 p-4'>
@@ -38,6 +49,20 @@ const Items = () => {
           </li>
         ))}
       </ul>
+      <div className="flex justify-between mt-4">
+        <button
+          onClick={handlePrevPage}
+          className="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md"
+        >
+          Página Anterior
+        </button>
+        <button
+          onClick={handleNextPage}
+          className="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md"
+        >
+          Próxima Página
+        </button>
+      </div>
     </div>
   );
 };
