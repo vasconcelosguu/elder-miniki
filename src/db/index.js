@@ -20,8 +20,15 @@ const getAllItems = async (page) => {
   }
 };
 
-const getBossId = (query) => {
-  console.log(query);
+const getBossDetails = async (bossId) => {
+  try {
+    const response = await fetch(`https://eldenring.fanapis.com/api/bosses/${bossId}`);
+    const { data } = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 const getAllBosses = async (page) => {
@@ -69,7 +76,7 @@ export {
   getItemDetails,
   getAllItems,
   getAllBosses,
-  getBossId,
+  getBossDetails,
   getWeaponsId,
   getAllWeapons,
   getClassesId,

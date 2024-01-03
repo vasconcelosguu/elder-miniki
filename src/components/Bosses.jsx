@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { getAllBosses } from '../db';
+import { getAllBosses, getBossDetails } from '../db';
+import ModalBoss from '../modals/ModalBoss';
 
 function Bosses() {
   const [bosses, setBosses] = useState([]);
   const [page, setPage] = useState(0);
+  const [selectedBossId, setSelectedBossId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,11 +24,22 @@ function Bosses() {
   const handleNextPage = () => {
     setPage((prevPage) => prevPage + 1);
   };
+
   const handlePrevPage = () => {
     setPage((prevPage) => Math.max(prevPage - 1, 1));
   };
 
-  const getDefaultImage = () => 'https://eldenring.wiki.fextralife.com/file/Elden-Ring/abductor-virgins-1-hq-elden-ring-wiki-guide.jpg';
+  const openModal = (bossId) => {
+    setSelectedBossId(bossId);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedBossId(null);
+    setIsModalOpen(false);
+  };
+
+  const getDefaultImage = () => 'https://www.freeiconspng.com/uploads/no-image-icon-15.png';
 
   return (
     <div className="bg-gray-600 p-4">
@@ -33,7 +47,11 @@ function Bosses() {
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {bosses.map((boss) => (
           <li key={boss.id} className="relative overflow-hidden group w-2/3">
-            <a href={boss.bossUrl} className="block rounded-md overflow-hidden border border-gray-800 hover:shadow-lg">
+            <button
+              type="button"
+              onClick={() => openModal(boss.id)}
+              className="block rounded-md overflow-hidden border border-gray-800 hover:shadow-lg"
+            >
               {boss.image ? (
                 <img
                   src={boss.image}
@@ -50,7 +68,7 @@ function Bosses() {
               <div className="absolute inset-0 flex items-center justify-center text-white font-bold opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                 {boss.name}
               </div>
-            </a>
+            </button>
           </li>
         ))}
       </ul>
@@ -70,6 +88,13 @@ function Bosses() {
           Próxima Página
         </button>
       </div>
+      {isModalOpen && (
+        <ModalBoss
+          bossID={selectedBossId}
+          onClose={closeModal}
+          getDetailsFunction={getBossDetails}
+        />
+      )}
     </div>
   );
 }
